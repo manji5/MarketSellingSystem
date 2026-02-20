@@ -4,8 +4,7 @@ This project is a desktop-based Inventory Management and Point of Sale (POS) app
 
 **Note:** This project is currently in its **alpha** stage. While core features are functional, it is still under active development.
 
-![Application Screenshot](screenshot.png)
-*(Replace this with a screenshot of your application. Add the `screenshot.png` file to the root directory of your project.)*
+![Application Screenshot](photos/screenshot.png)
 
 ## Features
 
@@ -43,8 +42,8 @@ Follow these steps to run the project on your local machine.
 ### Steps
 1.  **Clone the Repository:**
     ```bash
-    git clone [YOUR_PROJECT_URL]
-    cd [YOUR_PROJECT_DIRECTORY]
+    git clone [https://github.com/manji5/MarketSellingSystem.git]
+    cd [MarketSellingSystem]
     ```
 
 2.  **Install Dependencies:**
