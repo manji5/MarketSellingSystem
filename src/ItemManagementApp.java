@@ -45,7 +45,6 @@ public class ItemManagementApp extends JFrame {
         refreshItemTable();
     }
 
-    // --- createManagementPanel() ve diğer üst panel metotları aynı kalıyor ---
     private JPanel createManagementPanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderFactory.createTitledBorder("Item Management"));
@@ -76,7 +75,6 @@ public class ItemManagementApp extends JFrame {
         return panel;
     }
 
-    // --- createSalesPanel() aynı kalıyor ---
     private JPanel createSalesPanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderFactory.createTitledBorder("Sales Cart"));
@@ -113,7 +111,6 @@ public class ItemManagementApp extends JFrame {
         return panel;
     }
 
-    // --- addManagementListeners() aynı kalıyor ---
     private void addManagementListeners(JButton add, JButton edit, JButton del, JButton refresh) {
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
@@ -260,7 +257,6 @@ public class ItemManagementApp extends JFrame {
         System.out.printf("Total Amount: %.2f USD\n", amount);
         System.out.println("--------------------");
 
-        // Sepeti temizle
         cartItems.clear();
         updateCartTable();
 
