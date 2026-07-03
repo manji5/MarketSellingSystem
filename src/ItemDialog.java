@@ -9,7 +9,7 @@ public class ItemDialog extends JDialog {
     private JTextField descriptionField;
     private JTextField incomePriceField;
     private JTextField sellingPriceField;
-    private JTextField barcodeField; // <-- YENİ: Barkod için metin alanı
+    private JTextField barcodeField;
     private JButton saveButton;
     private JButton cancelButton;
 
@@ -19,23 +19,16 @@ public class ItemDialog extends JDialog {
     public ItemDialog(Frame owner, Item itemToEdit) {
         super(owner, true);
         this.item = itemToEdit;
-        // Ana pencereden repository'i al (Eğer ItemManagementApp değilse cast'i
-        // düzeltmelisiniz)
-        // Önceki kodda bu satır yoktu, ekleyelim.
         if (owner instanceof ItemManagementApp) {
             this.itemRepository = ((ItemManagementApp) owner).getItemRepository();
         } else {
-            // Hata durumu veya farklı bir ana pencere için bir yedek plan.
-            // Bu örnekte programı kapatıyoruz.
             System.err.println("Dialog owner is not an instance of ItemManagementApp!");
             System.exit(1);
         }
 
         setTitle(item == null ? "Add New Item" : "Edit Item");
-        // Bir alan daha eklediğimiz için satır sayısını 6'ya çıkarıyoruz
-        setLayout(new GridLayout(6, 2, 10, 10)); // <-- DEĞİŞTİ
+        setLayout(new GridLayout(6, 2, 10, 10)); 
 
-        // Form Elemanları
         add(new JLabel("Name:"));
         nameField = new JTextField();
         add(nameField);
@@ -52,27 +45,23 @@ public class ItemDialog extends JDialog {
         sellingPriceField = new JTextField();
         add(sellingPriceField);
 
-        // <-- YENİ BÖLÜM: Barkod alanı ekleniyor -->
         add(new JLabel("Barcode:"));
         barcodeField = new JTextField();
         add(barcodeField);
-        // <-- YENİ BÖLÜM SONU -->
 
         saveButton = new JButton("Save");
         cancelButton = new JButton("Cancel");
         add(saveButton);
         add(cancelButton);
 
-        // Eğer düzenleme modundaysak, alanları doldur
         if (item != null) {
             nameField.setText(item.getName());
             descriptionField.setText(item.getDescription());
             incomePriceField.setText(String.valueOf(item.getIncomePrice()));
             sellingPriceField.setText(String.valueOf(item.getSellingPrice()));
-            barcodeField.setText(item.getBarcode()); // <-- YENİ: Barkod alanını doldur
+            barcodeField.setText(item.getBarcode());
         }
 
-        // --- Event Listeners ---
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,10 +81,9 @@ public class ItemDialog extends JDialog {
     }
 
     private void saveItem() {
-        // Alanlardan verileri oku
         String name = nameField.getText();
         String description = descriptionField.getText();
-        String barcode = barcodeField.getText(); // <-- YENİ: Barkod alanından veriyi oku
+        String barcode = barcodeField.getText();
 
         double incomePrice, sellingPrice;
         try {
@@ -113,19 +101,18 @@ public class ItemDialog extends JDialog {
         }
 
         try {
-            if (item == null) { // Yeni item ekleme
-                // Constructor'a barkodu da ekliyoruz
-                Item newItem = new Item(name, description, incomePrice, sellingPrice, barcode); // <-- DEĞİŞTİ
+            if (item == null) {
+                Item newItem = new Item(name, description, incomePrice, sellingPrice, barcode);
                 itemRepository.addItem(newItem);
-            } else { // Mevcut item'ı güncelleme
+            } else { 
                 item.setName(name);
                 item.setDescription(description);
                 item.setIncomePrice(incomePrice);
                 item.setSellingPrice(sellingPrice);
-                item.setBarcode(barcode); // <-- DEĞİŞTİ: Barkodu da set et
+                item.setBarcode(barcode); 
                 itemRepository.updateItem(item);
             }
-            dispose(); // Başarılı olursa pencereyi kapat
+            dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error saving item: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
